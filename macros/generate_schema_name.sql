@@ -7,12 +7,12 @@
         {% if 'elementary' in node.fqn %}
             {{ target.schema }}_elementary
 
-        {% elif 'staging' in node.fqn and node.fqn.index('staging') + 1 < node.fqn | length %}
-            {% set prefix = node.fqn[node.fqn.index('staging')] %}
-            intermediate_{{ prefix | trim }}
+        {% elif 'intermediate' in node.fqn and node.fqn.index('intermediate') + 1 < node.fqn | length %}
+            {% set prefix = node.fqn[node.fqn.index('intermediate')] %}
+            {{ target.schema }}_intermediate_{{ prefix | trim }}
 
-        {% elif 'marts' in node.fqn and node.fqn.index('marts') + 1 < node.fqn | length %}
-            {% set prefix = node.fqn[node.fqn.index('marts')] %}
+        {% elif 'prod' in node.fqn and node.fqn.index('prod') + 1 < node.fqn | length %}
+            {% set prefix = node.fqn[node.fqn.index('prod')] %}
             {{ target.schema }}_{{ prefix | trim }}
 
         {# Fallback to default schema if no specific case matches #}
