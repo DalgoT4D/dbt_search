@@ -1,4 +1,5 @@
-{{ config(materialized='table') }}
+{{ config(materialized='table',
+tags=["nirman"]) }}
 
 -- depends_on: {{ ref('staging_nirman_ranking_self_1') }}
 -- depends_on: {{ ref('staging_nirman_ranking_self_2') }}

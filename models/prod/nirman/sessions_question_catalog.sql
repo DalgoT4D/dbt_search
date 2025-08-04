@@ -1,4 +1,5 @@
-{{ config(materialized='table') }}
+{{ config(materialized='table',
+tags=["nirman"]) }}
 
 with sessions_questions as (
 

@@ -1,4 +1,5 @@
-{{ config(materialized='table') }}
+{{ config(materialized='table',
+tags=["nirman"]) }}
 
 with ranked_participants as (
     select

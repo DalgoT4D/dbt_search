@@ -1,4 +1,5 @@
-{{ config(materialized='table') }}
+{{ config(materialized='table',
+tags=["nirman"]) }}
 
 {# 1️⃣ run_query to fetch table list only at run-time #}
 {% if execute %}
