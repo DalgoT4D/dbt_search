@@ -1,9 +1,18 @@
 version: 2
 
 sources:
-  - name: <source_name>
-    schema: <schema_name>
+  - name: staging_tribal_health_education
+    schema: staging_tribal_health_education
     tables:
-      - name: <table_name>
-        identifier: <table_name_in_db>
-        description: <table_description>
+      - name: health_education_session_log
+        identifier: Health_Education_Session_Log
+        description: Details on tribal health education
+  - name: staging_nirman_master_data
+    schema: staging_nirman_master_data
+    tables:
+      - name: master_database_participants
+        identifier: Master_Database_Participants_
+        description: Nirman master data
+
+
+        

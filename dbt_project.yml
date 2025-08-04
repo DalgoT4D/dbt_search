@@ -16,7 +16,7 @@ flags:
 
 models:
   dbt_search:                      # ← your actual project name
-    intermediate:                  # your intermediate folder
+    staging:                  # your intermediate folder
       +materialized: table       
     prod:                  # your intermediate folder
       +materialized: table    
