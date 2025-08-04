@@ -8,7 +8,11 @@ select
         else null
     end as "end",
     "Area",
-    "Date",
+    case 
+        when "Date" is null then null
+        when "Date" ~ '^\d{1,2}/\d{1,2}/\d{4}$' then "Date"
+        else null
+    end as "Date",
     _tags,
     _uuid,
     start,
