@@ -13,6 +13,240 @@ sources:
       - name: master_database_participants
         identifier: Master_Database_Participants_
         description: Nirman master data
+  - name: staging_tribal_health_mmu_data
+    schema: staging_tribal_health_mmu_data
+    description: "Raw MMU data from different sources"
+    tables:
+      - name: MMU_1
+        identifier: MMU_1
+        description: "MMU data from first source"
+        columns:
+          - name: serial_no
+            description: "Serial number of the record"
+            tests:
+              - not_null
+          - name: patient_unique_id
+            description: "Unique identifier for patient"
+            tests:
+              - not_null
+              - unique
+          - name: area
+            description: "Area where patient is from"
+          - name: name_of_the_village
+            description: "Village name"
+          - name: name_of_the_patient
+            description: "Patient name"
+          - name: age_day
+            description: "Age in days"
+          - name: age_month
+            description: "Age in months"
+          - name: age_years
+            description: "Age in years"
+          - name: t_age
+            description: "Total calculated age"
+          - name: sex
+            description: "Patient gender"
+          - name: diagnosis1
+            description: "Primary diagnosis"
+          - name: diagnosis2
+            description: "Secondary diagnosis"
+          - name: diagnosis3
+            description: "Third diagnosis"
+          - name: diagnosis4
+            description: "Fourth diagnosis"
+          - name: p_diagnosis5
+            description: "Fifth diagnosis"
+          - name: p_refered
+            description: "Patient referral status"
+          - name: p_newly_diag
+            description: "Newly diagnosed patient flag"
+          - name: p_followup
+            description: "Follow-up patient flag"
+          - name: submitted_by
+            description: "Person who submitted the record"
+          - name: submitted_on
+            description: "Date when record was submitted"
+          - name: dd
+            description: "Day component of visit date"
+          - name: mm
+            description: "Month component of visit date"
+          - name: yy
+            description: "Year component of visit date"
+          - name: dr_names
+            description: "Doctor name"
+
+      - name: MMU_2
+        identifier: MMU_2
+        description: "MMU data from second source"
+        columns:
+          - name: serial_no
+            description: "Serial number of the record"
+            tests:
+              - not_null
+          - name: patient_unique_id
+            description: "Unique identifier for patient"
+            tests:
+              - not_null
+              - unique
+          - name: area
+            description: "Area where patient is from"
+          - name: name_of_the_village
+            description: "Village name"
+          - name: name_of_the_patient
+            description: "Patient name"
+          - name: age_day
+            description: "Age in days"
+          - name: age_month
+            description: "Age in months"
+          - name: age_years
+            description: "Age in years"
+          - name: t_age
+            description: "Total calculated age"
+          - name: sex
+            description: "Patient gender"
+          - name: diagnosis1
+            description: "Primary diagnosis"
+          - name: diagnosis2
+            description: "Secondary diagnosis"
+          - name: diagnosis3
+            description: "Third diagnosis"
+          - name: diagnosis4
+            description: "Fourth diagnosis"
+          - name: p_diagnosis5
+            description: "Fifth diagnosis"
+          - name: p_refered
+            description: "Patient referral status"
+          - name: p_newly_diag
+            description: "Newly diagnosed patient flag"
+          - name: p_followup
+            description: "Follow-up patient flag"
+          - name: submitted_by
+            description: "Person who submitted the record"
+          - name: submitted_on
+            description: "Date when record was submitted"
+          - name: dd
+            description: "Day component of visit date"
+          - name: mm
+            description: "Month component of visit date"
+          - name: yy
+            description: "Year component of visit date"
+          - name: dr_names
+            description: "Doctor name"
+  - name: chjs_raw
+    description: Raw CHJS (Community Health Joint Support) patient data from Google Sheets
+    schema: staging_chjs_data  # Update this to your actual schema name
+    tables:
+      - name: new_patients
+        identifier: DataofNewPatient  # Update this to match your actual table name
+        description: New patient visit records from CHJS clinics
+        columns:
+          - name: registeration_no_
+            description: Unique patient registration number
+          - name: name
+            description: Patient name
+          - name: age
+            description: Patient age in years
+          - name: gender
+            description: Gender code (1=Male, 2=Female)
+          - name: day
+            description: Day of visit
+          - name: month
+            description: Month of visit
+          - name: year
+            description: Year of visit
+          - name: type_
+            description: Visit type code
+          - name: speciality_
+            description: Medical speciality code
+          - name: area_affected_
+            description: Body area affected code
+          - name: n_diagnosis_1
+            description: Primary neurological diagnosis code
+          - name: n_advice_1_
+            description: Primary neurological advice code
+          - name: n_diagnosis_2
+            description: Secondary neurological diagnosis code
+          - name: n_advice_2
+            description: Secondary neurological advice code
+          - name: n_diagnosis_3
+            description: Tertiary neurological diagnosis code
+          - name: n_advice_3
+            description: Tertiary neurological advice code
+          - name: red_flag_
+            description: Red flag indicator code
+          - name: if_red_flag_yes_then_mention_red_flag
+            description: Free text red flag description
+          - name: mri_suggested
+            description: MRI suggestion code
+          - name: mri_referred
+            description: MRI referral code
+          - name: x_ray_mri_already_done
+            description: Previous imaging status code
+          - name: other_diagnosis_1
+            description: First other diagnosis (free text)
+          - name: other_diagnosis_2
+            description: Second other diagnosis (free text)
+          - name: other_diagnosis_3
+            description: Third other diagnosis (free text)
+          - name: district
+            description: Patient district
+          - name: taluka
+            description: Patient taluka
+          - name: mobile_no_
+            description: Patient mobile number
+          - name: referred_by
+            description: Referring provider
+          - name: referred_to
+            description: Referred to provider
+
+      - name: followup_patients
+        identifier: DataofFollowUpPatient  # Update this to match your actual table name
+        description: Follow-up patient visit records from CHJS clinics
+        columns:
+          - name: registeration_no_
+            description: Unique patient registration number
+          - name: name
+            description: Patient name
+          - name: age
+            description: Patient age in years
+          - name: gender
+            description: Gender code (1=Male, 2=Female)
+          - name: day
+            description: Day of visit
+          - name: month
+            description: Month of visit
+          - name: year
+            description: Year of visit
+          - name: type_
+            description: Visit type code
+          - name: speciality_
+            description: Medical speciality code
+          - name: area_affected_
+            description: Body area affected code
+          - name: n_diagnosis_1
+            description: Primary neurological diagnosis code
+          - name: n_advice_1_
+            description: Primary neurological advice code
+          - name: n_diagnosis_2
+            description: Secondary neurological diagnosis code
+          - name: n_advice_2
+            description: Secondary neurological advice code
+          - name: n_diagnosis_3
+            description: Tertiary neurological diagnosis code
+          - name: n_advice_3
+            description: Tertiary neurological advice code
+          - name: red_flag_
+            description: Red flag indicator code
+          - name: if_red_flag_yes_then_mention_red_flag
+            description: Free text red flag description
+          - name: mri_suggested
+            description: MRI suggestion code
+          - name: mri_referred
+            description: Previous imaging status code
+          - name: other_diagnosis
+            description: First other diagnosis (free text)
+          - name: patient_return_with_mri
+            description: Patient return with MRI code
 
 
         
