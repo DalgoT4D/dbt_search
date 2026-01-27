@@ -247,6 +247,154 @@ sources:
             description: First other diagnosis (free text)
           - name: patient_return_with_mri
             description: Patient return with MRI code
-
-
-        
+  - name: staging_nirman_questionnaire
+    schema: staging_nirman_questionnaire
+    tables:
+      - name: staging_nirman_questionnaire
+        identifier: tabWorkshop_Questionnaire
+        description: NIRMAN Workshop Questionnaire responses with career, criteria, insecurities, and questions data
+        columns:
+          - name: name
+            description: Unique identifier for the questionnaire response
+          - name: participant
+            description: Participant identifier
+          - name: workshop
+            description: Workshop identifier
+          # Career columns (8 total)
+          - name: carrer_1
+            description: Government Service
+          - name: carrer_2
+            description: Job in Private Industry
+          - name: carrer_3
+            description: Social Entrepreneurship/Own NGO
+          - name: carrer_4
+            description: Own Business
+          - name: carrer_5
+            description: Academic (College/University)
+          - name: carrer_6
+            description: Working in NGO
+          - name: carrer_7
+            description: Confused / Not Decided
+          - name: carrer_8
+            description: Other
+          # Criteria columns (8 total)
+          - name: criteria_1
+            description: Geographical Location
+          - name: criteria_2
+            description: Financial Security
+          - name: criteria_3
+            description: Work Satisfaction
+          - name: criteria_4
+            description: Cause of My work
+          - name: criteria_5
+            description: Career progress/growth
+          - name: criteria_6
+            description: Work Life Balance
+          - name: criteria_7
+            description: Financial Prosperity
+          - name: criteria_8
+            description: Job Security
+          # Insecurities columns (10 total)
+          - name: insecurities_1
+            description: Social Acceptability
+          - name: insecurities_2
+            description: Monetary Compensation
+          - name: insecurities_3
+            description: Response of Parents
+          - name: insecurities_4
+            description: Difficulty in finding the suitable life partner
+          - name: insecurities_5
+            description: Underutilisation of my talent and skills
+          - name: insecurities_6
+            description: Less comfortable lifestyle as compared to my usual peers
+          - name: insecurities_7
+            description: Not being Able to create any visible impact
+          - name: insecurities_8
+            description: Feeling professionally leftout
+          - name: insecurities_9
+            description: Lack of satisfaction at the end of life
+          - name: insecurities_10
+            description: Will my life be less Comfortable than it currently is
+          # Social contribution
+          - name: social_contribution
+            description: During my productive lifetime I plan to engage in social contribution
+          # Questions (41 total)
+          - name: question_1
+            description: I feel happy about myself. I like who I am.
+          - name: question_2
+            description: I have a good understanding about various social issues around me and their severity
+          # ... (additional questions)
+          # Finance columns
+          - name: finance_1
+            description: Monthly income needed at age 25
+          - name: finance_2
+            description: Monthly income needed at age 30
+          - name: finance_3
+            description: Monthly income as per Financial sheet
+          - name: finance_4
+            description: Finance divided by 2
+  - name: nirman
+    description: Nirman demographics data from frappe mariadb via Airbyte
+    schema: staging_nirman_demographics
+    tables:
+      - name: demographics_raw
+        identifier: tabNIRMANI_Details
+        description: Staging table for Nirman demographics data containing participant information
+        columns:
+          - name: id
+            description: Unique identifier for each participant
+          - name: name
+            description: Participant's full name
+          - name: gender
+            description: Participant's gender
+          - name: batch
+            description: Batch or cohort identifier
+          - name: mobile
+            description: Mobile number
+          - name: email_id
+            description: Email address
+          - name: workshop_details
+            description: Workshop identifier or name
+          - name: nirman_krutee_nirman
+            description: Type of workshop (Nirman/Krutee)
+          - name: educational_degree
+            description: Educational degree
+          - name: educational_stream
+            description: Original detailed educational stream from source
+          - name: level_of_education
+            description: Education level (B for Bachelor's, M for Master's, P for PhD)
+          - name: current_status_of_work
+            description: Current employment or work status (DT/EdB/OW/Not Now/SIW/Student)
+          - name: workshop_month_and_year
+            description: Month and year when workshop was conducted
+          - name: age_at_the_time_of_the_workshop_
+            description: Age at the time of the workshop
+          - name: person_years_of_social_action_as_on_31_st_mar_22
+            description: Years of experience in social action work as of March 31, 2022
+          - name: person_years_of_social_action_as_on_31_st_mar_23
+            description: Years of experience in social action work as of March 31, 2023
+          - name: person_years_of_social_action_as_on_31_st_mar_24
+            description: Years of experience in social action work as of March 31, 2024
+          - name: person_years_of_social_action_as_on_31_st_mar_25
+            description: Years of experience in social action work as of March 31, 2025
+          - name : Native State
+            description: Participant's native state
+          - name : Native District
+            description: Participant's native district
+          - name : Native Tehsil/Town
+            description: Participant's native taluka
+  - name: staging_village_master_data
+    schema: staging
+    tables:
+     - name: Matched Villages
+       identifier: Matched_Villages_
+       description: Master data for villages
+       columns:
+          - name: marathi
+            description: Village name in Marathi
+          - name: english
+            description: Village name in English
+          - name: district
+            description: District name
+          - name: taluka
+            description: Taluka name
