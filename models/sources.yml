@@ -398,3 +398,91 @@ sources:
             description: District name
           - name: taluka
             description: Taluka name
+  - name: tribal_health
+    description: "Tribal Health Education Data "
+    schema: staging_tribal_health_education_data_1  # Update this to match your actual schema name
+    tables:
+      - name: Health_Education
+        identifier: Health_Education  # Update this to match the actual table name in your database
+        description: "Health education session data including topics, locations, participants, and villages covered"
+        columns:
+          - name: date
+            description: "Date of the health education session"
+            data_type: date
+            
+          - name: select_the_health_education_topics_you_can_choose_more_than_one
+            description: "Health education topics selected for the session"
+            data_type: text
+            
+          - name: area
+            description: "Area where health education was conducted"
+            data_type: text
+            
+          - name: villages_in_karwafa_area
+            description: "Villages in Karwafa area covered"
+            data_type: text
+            
+          - name: villages_in_pendhari_area
+            description: "Villages in Pendhari area covered"
+            data_type: text
+            
+          - name: villages_in_dhanora_area
+            description: "Villages in Dhanora area covered"
+            data_type: text
+            
+          - name: villages_in_rangi_area
+            description: "Villages in Rangi area covered"
+            data_type: text
+            
+          - name: villages_in_murumgao_area
+            description: "Villages in Murumgao area covered"
+            data_type: text
+            
+          - name: was_health_education_session_conducted
+            description: "Whether the health education session was conducted (Yes/No)"
+            data_type: text
+            
+          - name: reason_for_not_conducting_session
+            description: "Reason provided if session was not conducted"
+            data_type: text
+            
+          - name: in_how_many_places_was_health_education_conducted_
+            description: "Number of places where health education was conducted"
+            data_type: number
+            
+          - name: location_1_name
+            description: "Name of location 1"
+            data_type: text
+            
+          - name: location_1_number_of_participants
+            description: "Number of participants at location 1"
+            data_type: number
+            
+          - name: location_2_name
+            description: "Name of location 2"
+            data_type: text
+            
+          - name: location_2_number_of_participants
+            description: "Number of participants at location 2"
+            data_type: number
+            
+          - name: location_3_name
+            description: "Name of location 3"
+            data_type: text
+            
+          - name: location_3_number_of_participants
+            description: "Number of participants at location 3"
+            data_type: number
+            
+          - name: location_4_name
+            description: "Name of location 4"
+            data_type: text
+            
+          - name: location_4_number_of_participants
+            description: "Number of participants at location 4"
+            data_type: number
+            
+          - name: total_number_of_participants
+            description: "Total number of participants across all locations"
+            data_type: number
+            
