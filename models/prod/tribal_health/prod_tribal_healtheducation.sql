@@ -17,19 +17,19 @@ select
     
     session_conducted,
     reason_for_not_conducting_session,
-    number_of_locations,
+    cast(number_of_locations as integer) as number_of_locations,
     
     -- Locations with participants
     location_1_name,
-    location_1_participants,
+    cast(location_1_participants as integer) as location_1_participants,
     location_2_name,
-    location_2_participants,
+    cast(location_2_participants as integer) as location_2_participants,
     location_3_name,
-    location_3_participants,
+    cast(location_3_participants as integer) as location_3_participants,
     location_4_name,
-    location_4_participants,
+    cast(location_4_participants as integer) as location_4_participants,
     
-    total_number_of_participants
+    cast(total_number_of_participants as integer) as total_number_of_participants
     
 from {{ ref('staging_tribal_healtheducation') }}
 order by date desc
