@@ -44,11 +44,16 @@ final as (
         is_newly_diagnosed,
         is_followup,
         visit_date,
-        'Week' || COALESCE(extract(week from visit_date)::text, 'Unknown') as visit_week,
+        case 
+            when visit_date is null then 'Unknown'
+            else 'Week ' || extract(week from visit_date)::text || '(' ||
+                 to_char(date_trunc('week', visit_date), 'Mon DD') || '-' || 
+                 to_char(date_trunc('week', visit_date) + interval '6 days', 'Mon DD') || ')'
+        end as visit_week,
         submitted_by,
         doctor_name,
         source_system,
-        COALESCE(to_char(visit_date, 'Month'), 'Unknown') as visit_month,
+        COALESCE(to_char(visit_date, 'MM') || '-' || to_char(visit_date, 'Month'), 'Unknown') as visit_month,
         COALESCE(extract(year from visit_date)::text, 'Unknown') as visit_year
     from deduped
     where rn = 1  -- Keep first record if there are still exact duplicates
