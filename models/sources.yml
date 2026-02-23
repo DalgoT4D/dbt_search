@@ -120,6 +120,7 @@ sources:
             description: "Year component of visit date"
           - name: dr_names
             description: "Doctor name"
+
   - name: chjs_raw
     description: Raw CHJS (Community Health Joint Support) patient data from Google Sheets
     schema: staging_chjs_data  # Update this to your actual schema name
@@ -235,6 +236,7 @@ sources:
             description: First other diagnosis (free text)
           - name: patient_return_with_mri
             description: Patient return with MRI code
+
   - name: staging_nirman_questionnaire
     schema: staging_nirman_questionnaire
     tables:
@@ -248,7 +250,7 @@ sources:
             description: Participant identifier
           - name: workshop
             description: Workshop identifier
-          # Career columns (8 total)
+          # Career columns (8 total) - list of careers given to NIRMAN candidates to prioritise. each column will hold a value between 1 and 8
           - name: carrer_1
             description: Government Service
           - name: carrer_2
@@ -265,7 +267,7 @@ sources:
             description: Confused / Not Decided
           - name: carrer_8
             description: Other
-          # Criteria columns (8 total)
+          # Criteria columns (8 total) - list of criteria that NIRMAN candidates are asked to prioritise from their view point, each column has a value from 1 to 10
           - name: criteria_1
             description: Geographical Location
           - name: criteria_2
@@ -282,7 +284,7 @@ sources:
             description: Financial Prosperity
           - name: criteria_8
             description: Job Security
-          # Insecurities columns (10 total)
+          # Insecurities columns (10 total) - list of insecurities that NIRMAN candidates are asked to prioritise from their view point. each column will have the value from 1 to 10
           - name: insecurities_1
             description: Social Acceptability
           - name: insecurities_2
@@ -303,16 +305,16 @@ sources:
             description: Lack of satisfaction at the end of life
           - name: insecurities_10
             description: Will my life be less Comfortable than it currently is
-          # Social contribution
+          # Social contribution - column containing value to show if the NIRMANI is interested in contributing to society. This is a boolean variable.
           - name: social_contribution
             description: During my productive lifetime I plan to engage in social contribution
-          # Questions (41 total)
+          # Questions (41 total) - a set of questions to capture a candidate's perception about themselves (41)
           - name: question_1
             description: I feel happy about myself. I like who I am.
           - name: question_2
             description: I have a good understanding about various social issues around me and their severity
           # ... (additional questions)
-          # Finance columns
+          # Finance columns - a set of 4 columns that contain the monthly incomes deemed necessary by the candidate
           - name: finance_1
             description: Monthly income needed at age 25
           - name: finance_2
@@ -321,6 +323,7 @@ sources:
             description: Monthly income as per Financial sheet
           - name: finance_4
             description: Finance divided by 2
+
   - name: nirman
     description: Nirman demographics data from frappe mariadb via Airbyte
     schema: staging_nirman_demographics
@@ -348,7 +351,7 @@ sources:
           - name: educational_degree
             description: Educational degree
           - name: educational_stream
-            description: Original detailed educational stream from source
+            description: Original detailed educational stream from source (Medical,Engineering , Arts/Commerce/Science/Pharmacy)
           - name: level_of_education
             description: Education level (B for Bachelor's, M for Master's, P for PhD)
           - name: current_status_of_work
@@ -371,6 +374,7 @@ sources:
             description: Participant's native district
           - name : Native Tehsil/Town
             description: Participant's native taluka
+            
   - name: staging_village_master_data
     schema: staging
     tables:
@@ -473,4 +477,3 @@ sources:
           - name: total_number_of_participants
             description: "Total number of participants across all locations"
             data_type: number
-            
