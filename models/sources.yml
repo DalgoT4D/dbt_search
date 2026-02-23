@@ -1,18 +1,6 @@
 version: 2
 
 sources:
-  - name: staging_tribal_health_education
-    schema: staging_tribal_health_education
-    tables:
-      - name: health_education_session_log
-        identifier: Health_Education_Session_Log
-        description: Details on tribal health education
-  - name: staging_nirman_master_data
-    schema: staging_nirman_master_data
-    tables:
-      - name: master_database_participants
-        identifier: Master_Database_Participants_
-        description: Nirman master data
   - name: staging_tribal_health_mmu_data
     schema: staging_tribal_health_mmu_data
     description: "Raw MMU data from different sources"
