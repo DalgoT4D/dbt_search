@@ -27,27 +27,27 @@ with source_data as (
         end as visit_date,
         
         -- Coded categorical fields
-        type_ as type_code,
+        type as type_code,
         -- derive human readable label for type_code here so outer select can reuse it
         case
-            when trim(type_) in ('1') then 'REGULAR (OPD)'
-            when trim(type_) in ('2') then 'TELE'
-            when trim(type_) in ('3') then 'SPECIALIST'
+            when trim(type) in ('1') then 'REGULAR (OPD)'
+            when trim(type) in ('2') then 'TELE'
+            when trim(type) in ('3') then 'SPECIALIST'
             else null
         end as type_label,
-        speciality_ as speciality_code,
-        area_affected_ as area_affected_code,
+        speciality as speciality_code,
+        area_affected as area_affected_code,
         
         -- Diagnosis and advice codes
         n_diagnosis_1 as n_diagnosis_1_code,
-        n_advice_1_ as n_advice_1_code,
+        n_advice_1 as n_advice_1_code,
         n_diagnosis_2 as n_diagnosis_2_code,
         n_advice_2 as n_advice_2_code,
         n_diagnosis_3 as n_diagnosis_3_code,
         n_advice_3 as n_advice_3_code,
         
         -- Red flag indicators
-        red_flag_ as red_flag_code,
+        red_flag as red_flag_code,
             -- Normalize red flag description: trim, collapse spaces, uppercase; expand common abbreviations
             case
                 when if_red_flag_yes_then_mention_red_flag is null then null
