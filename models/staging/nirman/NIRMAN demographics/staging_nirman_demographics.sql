@@ -8,11 +8,18 @@ with source_data as (
         batch::text as batch,
         workshop_details::text as workshop,
         nirman_krutee_nirman::text as workshop_type,
+        workshops_attended as workshops_attended,
         workshop_month_and_year::text as workshop_month_year,
         stream::text as educational_stream,
         state::text as native_state,
         district::text as native_district,
         tehsiltown::text as native_tehsiltown,
+        point_2_workshop_name::text as point_2_workshop_name,
+        point_2_workshop_invited::text as point_2_workshop_invited,
+        point_2_workshop_attended::text as point_2_workshop_attended,
+        point_3_workshop_name::text as point_3_workshop_name,
+        point_3_workshop_invited::text as point_3_workshop_invited,
+        point_3_workshop_attended::text as point_3_workshop_attended,
         case 
             when trim(level_of_education) = '' then null
             when upper(trim(level_of_education)) = 'NA' then null
@@ -44,6 +51,7 @@ cleaned_data as (
         trim(workshop) as workshop,
         trim(workshop_type) as workshop_type,
         trim(workshop_month_year) as workshop_month_year,
+        workshops_attended,
         trim(educational_stream) as educational_stream_raw,
         trim(level_of_education) as level_of_education,
         trim(current_status_of_work) as current_status_of_work_raw,
@@ -51,6 +59,12 @@ cleaned_data as (
         native_state,
         native_district,
         native_tehsiltown,
+        point_2_workshop_name,
+        point_2_workshop_invited,
+        point_2_workshop_attended,
+        point_3_workshop_name,
+        point_3_workshop_invited,
+        point_3_workshop_attended,
         
         -- Standardize Current Status of Work with full descriptions
         case
@@ -134,6 +148,7 @@ select
     workshop,
     workshop_type,
     workshop_month_year,
+    workshops_attended,
     educational_stream_raw as educational_stream,
     educational_stream_1,
     current_status_of_work,
@@ -141,7 +156,13 @@ select
     education_status,
     native_state,
     native_district,
-    native_tehsiltown
+    native_tehsiltown,
+    point_2_workshop_name,
+    point_2_workshop_invited,
+    point_2_workshop_attended,
+    point_3_workshop_name,
+    point_3_workshop_invited,
+    point_3_workshop_attended
 from cleaned_data
 where participant_id is not null
 order by participant_id
