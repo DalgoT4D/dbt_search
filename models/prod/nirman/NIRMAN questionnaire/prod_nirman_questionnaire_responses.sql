@@ -11,7 +11,8 @@ with responses_with_questions as (
         r.workshop_phase,
         r.question_code,
         q.category,
-    q.question_text as question,
+        q.question_text as question,
+        q.short_question_text as short_question,
     -- prefer integer response when available, otherwise use textual response
     coalesce(cast(r.response_int as text), r.response_text) as response
     from {{ ref('int_nirman_questionnaire') }} r
@@ -27,6 +28,7 @@ select
     category,
     question_code,
     question,
+    short_question,
     response
 from responses_with_questions
 order by 

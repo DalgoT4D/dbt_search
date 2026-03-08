@@ -69,7 +69,7 @@ questions_unpivoted as (
            case when trim(cast(response as text)) ~ '^\d+$' then cast(trim(cast(response as text)) as int) else null end as response_int,
            cast(response as text) as response_text
     from (
-        {{ unpivot_questionnaire_columns(ref('staging_nirman_questionnaire'), 'question', 1, 41) }}
+        {{ unpivot_questionnaire_columns(ref('staging_nirman_questionnaire'), 'question', 1, 109) }}
     ) as u
 ),
 
