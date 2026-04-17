@@ -1,6 +1,8 @@
 {{ config(materialized='table') }}
 
--- Stage 1: Extract raw questionnaire data with selected columns
+-- Stage 1: Extract raw questionnaire data using dynamic column generation
+-- Column counts: carrer(8) + criteria(9) + insecurities(10) + social_contribution(1)
+--              + question(142) + finance(5) = 175 response columns
 with raw_questionnaire as (
     select
         participant_id,
@@ -8,165 +10,41 @@ with raw_questionnaire as (
         workshop_name,
         workshop_phase,
         batch,
-        
-        -- Career columns (note: source has 'carrer' typo)
-        carrer_1,
-        carrer_2,
-        carrer_3,
-        carrer_4,
-        carrer_5,
-        carrer_6,
-        carrer_7,
-        carrer_8,
-        
-        -- Criteria columns
-        criteria_1,
-        criteria_2,
-        criteria_3,
-        criteria_4,
-        criteria_5,
-        criteria_6,
-        criteria_7,
-        criteria_8,
-        criteria_9,
-        
-        -- Insecurities columns
-        insecurities_1,
-        insecurities_2,
-        insecurities_3,
-        insecurities_4,
-        insecurities_5,
-        insecurities_6,
-        insecurities_7,
-        insecurities_8,
-        insecurities_9,
-        insecurities_10,
-        
-        -- Social contribution
+
+        -- Career columns (8 total: carrer_1 to carrer_8)
+        -- Note: source has 'carrer' typo — preserved for compatibility
+        {% for i in range(1, 9) %}
+        carrer_{{ i }},
+        {% endfor %}
+
+        -- Criteria columns (9 total: criteria_1 to criteria_9)
+        {% for i in range(1, 10) %}
+        criteria_{{ i }},
+        {% endfor %}
+
+        -- Insecurities columns (10 total: insecurities_1 to insecurities_10)
+        {% for i in range(1, 11) %}
+        insecurities_{{ i }},
+        {% endfor %}
+
+        -- Social contribution (standardized values)
         case 
             when lower(trim(social_contribution)) in ('occasionally', 'occasionaly') then 'Occasionally'
             when lower(trim(social_contribution)) like 'part time%' then 'Part time'
             when lower(trim(social_contribution)) like '%monitory contribution%' then 'Monetary contribution'
             else social_contribution
         end as social_contribution,
-        
-        -- Question columns (1-41)
-        question_1,
-        question_2,
-        question_3,
-        question_4,
-        question_5,
-        question_6,
-        question_7,
-        question_8,
-        question_9,
-        question_10,
-        question_11,
-        question_12,
-        question_13,
-        question_14,
-        question_15,
-        question_16,
-        question_17,
-        question_18,
-        question_19,
-        question_20,
-        question_21,
-        question_22,
-        question_23,
-        question_24,
-        question_25,
-        question_26,
-        question_27,
-        question_28,
-        question_29,
-        question_30,
-        question_31,
-        question_32,
-        question_33,
-        question_34,
-        question_35,
-        question_36,
-        question_37,
-        question_38,
-        question_39,
-        question_40,
-        question_41,
-        question_42,
-        question_43,
-        question_44,   
-        question_45,
-        question_46,
-        question_47,
-        question_48,
-        question_49,
-        question_50,
-        question_51,
-        question_52,
-        question_53,
-        question_54,
-        question_55,
-        question_56,
-        question_57,
-        question_58,
-        question_59,
-        question_60,
-        question_61,
-        question_62,
-        question_63,
-        question_64,
-        question_65,
-        question_66,
-        question_67,
-        question_68,
-        question_69,
-        question_70,
-        question_71,
-        question_72,    
-        question_73,
-        question_74,
-        question_75,
-        question_76,    
-        question_77,
-        question_78,
-        question_79,
-        question_80,
-        question_81,
-        question_82,
-        question_83,
-        question_84,    
-        question_85,
-        question_86,
-        question_87,    
-        question_88,
-        question_89,
-        question_90,
-        question_91,
-        question_92,
-        question_93,
-        question_94,
-        question_95,
-        question_96,
-        question_97,    
-        question_98,
-        question_99,
-        question_100,
-        question_101,
-        question_102,
-        question_103,
-        question_104,
-        question_105,
-        question_106,
-        question_107,
-        question_108,
-        question_109,
 
-        -- Finance columns
-        finance_1,
-        finance_2,
-        finance_3,
-        finance_4
-        
+        -- Question columns (142 total: question_1 to question_142)
+        {% for i in range(1, 143) %}
+        question_{{ i }},
+        {% endfor %}
+
+        -- Finance columns (5 total: finance_1 to finance_5)
+        {% for i in range(1, 6) %}
+        finance_{{ i }}{% if not loop.last %},{% endif %}
+        {% endfor %}
+
     from {{ source('staging_nirman_questionnaire', 'staging_nirman_questionnaire') }}
 )
 

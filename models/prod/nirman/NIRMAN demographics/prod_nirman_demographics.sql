@@ -10,9 +10,14 @@ final as (
         name                                        as "Name",
         gender                                      as "Gender",
         batch                                       as "Batch",
+        current_age                                 as "Current Age",
+        age_at_workshop                             as "Age at Workshop",
         workshop                                    as "Workshop",
         workshop_type                               as "Workshop Type",
         workshop_month_year                         as "Workshop Month and Year",
+        workshop_month                              as "Workshop Month",
+        workshop_month_num                          as "Workshop Month Num",
+        workshop_fy                                 as "Workshop Financial Year",
         workshops_attended                          as "Workshops Attended",
         educational_stream                          as "Educational Stream",
         educational_stream_1                        as "Educational Stream 1",
@@ -31,8 +36,9 @@ final as (
         raw_native_tehsil                           as "Raw Native Tehsil",
 
         -- ── Data-quality flags ────────────────────────────────────────────
-        {# state_match_status                          as "State Match Status",
-        district_match_status                       as "District Match Status", #}
+        state_match_status                          as "State Match Status",
+        district_match_status                       as "District Match Status",
+        tehsil_match_method                         as "Tehsil Match Method",
 
         point_2_workshop_name                       as "Point 2 Workshop Name",
         point_2_workshop_invited                    as "Point 2 Workshop Invited",

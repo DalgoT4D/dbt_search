@@ -1,104 +1,41 @@
 {{ config(materialized='table') }}
 
--- Unpivot the questionnaire data using macro for cleaner code
-with career_unpivoted as (
-    select participant_id,
-           participant_name,
-           workshop_name,
-           workshop_phase,
-           batch,
-           question_code,
-           -- integer response when numeric
-           case when trim(cast(response as text)) ~ '^\d+$' then cast(trim(cast(response as text)) as int) else null end as response_int,
-           -- textual representation of response (kept for non-numeric answers)
-           cast(response as text) as response_text
-    from (
-        {{ unpivot_questionnaire_columns(ref('staging_nirman_questionnaire'), 'carrer', 1, 8) }}
-    ) as u
-),
+-- Unpivot all questionnaire response columns into a long format.
+-- The unpivot_questionnaire_columns macro handles:
+--   - generating UNION ALL for each numbered column
+--   - splitting response into response_int (numeric) and response_text
+--   - filtering out NULL responses
 
-criteria_unpivoted as (
-    select participant_id,
-           participant_name,
-           workshop_name,
-           workshop_phase,
-           batch,
-           question_code,
-           case when trim(cast(response as text)) ~ '^\d+$' then cast(trim(cast(response as text)) as int) else null end as response_int,
-           cast(response as text) as response_text
-    from (
-        {{ unpivot_questionnaire_columns(ref('staging_nirman_questionnaire'), 'criteria', 1, 8) }}
-    ) as u
-),
+{% set categories = [
+    ('carrer', 1, 8),
+    ('criteria', 1, 9),
+    ('insecurities', 1, 10),
+    ('question', 1, 142),
+    ('finance', 1, 5)
+] %}
 
-insecurities_unpivoted as (
-    select participant_id,
-           participant_name,
-           workshop_name,
-           workshop_phase,
-           batch,
-           question_code,
-           case when trim(cast(response as text)) ~ '^\d+$' then cast(trim(cast(response as text)) as int) else null end as response_int,
-           cast(response as text) as response_text
-    from (
-        {{ unpivot_questionnaire_columns(ref('staging_nirman_questionnaire'), 'insecurities', 1, 9) }}
-    ) as u
-),
+with all_unpivoted as (
+    {% for prefix, start_val, end_val in categories %}
+    {{ unpivot_questionnaire_columns(ref('staging_nirman_questionnaire'), prefix, start_val, end_val) }}
+    {% if not loop.last %}
+    union all
+    {% endif %}
+    {% endfor %}
 
-social_contribution_unpivoted as (
+    union all
+
+    -- social_contribution is a single non-numbered column, handled separately
     select 
         participant_id,
         participant_name,
         workshop_name,
         workshop_phase,
         batch,
-    'social_contribution' as question_code,
-    null::int as response_int,
-    cast(social_contribution as text) as response_text
+        'social_contribution' as question_code,
+        null::int as response_int,
+        cast(social_contribution as text) as response_text
     from {{ ref('staging_nirman_questionnaire') }}
     where social_contribution is not null
-),
-
-questions_unpivoted as (
-    select participant_id,
-           participant_name,
-           workshop_name,
-           workshop_phase,
-           batch,
-           question_code,
-           case when trim(cast(response as text)) ~ '^\d+$' then cast(trim(cast(response as text)) as int) else null end as response_int,
-           cast(response as text) as response_text
-    from (
-        {{ unpivot_questionnaire_columns(ref('staging_nirman_questionnaire'), 'question', 1, 109) }}
-    ) as u
-),
-
-finance_unpivoted as (
-    select participant_id,
-           participant_name,
-           workshop_name,
-           workshop_phase,
-           batch,
-           question_code,
-           case when trim(cast(response as text)) ~ '^\d+$' then cast(trim(cast(response as text)) as int) else null end as response_int,
-           cast(response as text) as response_text
-    from (
-        {{ unpivot_questionnaire_columns(ref('staging_nirman_questionnaire'), 'finance', 1, 4) }}
-    ) as u
-),
-
-all_unpivoted as (
-    select * from career_unpivoted
-    union all
-    select * from criteria_unpivoted
-    union all
-    select * from insecurities_unpivoted
-    union all
-    select * from social_contribution_unpivoted
-    union all
-    select * from questions_unpivoted
-    union all
-    select * from finance_unpivoted
 )
 
 select

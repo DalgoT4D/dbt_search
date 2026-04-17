@@ -10,6 +10,12 @@ with responses_with_questions as (
         r.workshop_name,
         r.workshop_phase,
         r.question_code,
+        r.batch::numeric as batch,
+        case 
+            when r.batch::numeric = floor(r.batch::numeric) then 0.1
+            when round(r.batch::numeric - floor(r.batch::numeric), 1) = 0.2 then 0.2
+            when round(r.batch::numeric - floor(r.batch::numeric), 1) = 0.3 then 0.3
+        end as workshop_level,
         q.category,
         q.question_text as question,
         q.short_question_text as short_question,
@@ -25,6 +31,8 @@ select
     participant_name as participant,
     workshop_name as workshop,
     workshop_phase,
+    batch,
+    workshop_level,
     category,
     question_code,
     question,
