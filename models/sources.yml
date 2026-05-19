@@ -308,7 +308,7 @@ sources:
           # Social contribution - column containing value to show if the NIRMANI is interested in contributing to society. This is a boolean variable.
           - name: social_contribution
             description: During my productive lifetime I plan to engage in social contribution
-          # Questions (41 total) - a set of questions to capture a candidate's perception about themselves (41)
+          # Questions - a set of questions to capture a candidate's perception about themselves (41)
           - name: question_1
             description: I feel happy about myself. I like who I am.
           - name: question_2

@@ -23,3 +23,8 @@ models:
 
   elementary:
     +schema: "elementary"
+
+vars:
+  state_similarity_threshold: 0.65    # tighter — state names are short, false positives risky
+  district_similarity_threshold: 0.55
+  tehsil_similarity_threshold: 0.55

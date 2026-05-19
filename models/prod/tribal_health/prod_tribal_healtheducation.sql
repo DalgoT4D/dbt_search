@@ -36,12 +36,19 @@ normalized as (
         {{ normalised_village_tribal('villages_in_rangi_area') }}     as villages_in_rangi_area,
         {{ normalised_village_tribal('villages_in_murumgao_area') }}  as villages_in_murumgao_area,
         -- ── Combined village column ────────────────────────────
-        concat_ws(', ',
-            nullif({{ normalised_village_tribal('villages_in_karwafa_area') }}, ''),
-            nullif({{ normalised_village_tribal('villages_in_pendhari_area') }}, ''),
-            nullif({{ normalised_village_tribal('villages_in_dhanora_area') }}, ''),
-            nullif({{ normalised_village_tribal('villages_in_rangi_area') }}, ''),
-            nullif({{ normalised_village_tribal('villages_in_murumgao_area') }}, '')
+        -- Falls back to area name when all village columns are blank
+        coalesce(
+            nullif(
+                concat_ws(', ',
+                    nullif({{ normalised_village_tribal('villages_in_karwafa_area') }}, ''),
+                    nullif({{ normalised_village_tribal('villages_in_pendhari_area') }}, ''),
+                    nullif({{ normalised_village_tribal('villages_in_dhanora_area') }}, ''),
+                    nullif({{ normalised_village_tribal('villages_in_rangi_area') }}, ''),
+                    nullif({{ normalised_village_tribal('villages_in_murumgao_area') }}, '')
+                ),
+                ''
+            ),
+            area
         ) as villages,
 
         session_conducted,

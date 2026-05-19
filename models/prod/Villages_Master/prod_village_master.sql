@@ -6,7 +6,7 @@ with source as (
 
 cleaned as (
     select
-        trim(marathi) as marathi,
+        {{ normalised_village_tribal('marathi') }} as marathi,
         trim(english) as english,
         trim(district) as district,
         trim(taluka) as taluka

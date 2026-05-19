@@ -34,7 +34,7 @@ final as (
         age_years,
         age_group,
         area,
-        village,
+        {{ normalised_village_tribal('village') }} as village,
         diagnosis1,
         diagnosis2,
         diagnosis3,
