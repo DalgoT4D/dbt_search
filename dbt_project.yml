@@ -16,10 +16,15 @@ flags:
 
 models:
   dbt_search:                      # ← your actual project name
-    intermediate:                  # your intermediate folder
+    staging:                  # your intermediate folder
       +materialized: table       
     prod:                  # your intermediate folder
       +materialized: table    
 
   elementary:
     +schema: "elementary"
+
+vars:
+  state_similarity_threshold: 0.65    # tighter — state names are short, false positives risky
+  district_similarity_threshold: 0.55
+  tehsil_similarity_threshold: 0.55
