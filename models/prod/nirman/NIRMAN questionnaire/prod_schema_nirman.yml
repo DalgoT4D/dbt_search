@@ -34,11 +34,8 @@ models:
     JOIN to Demographics on Participant_ID for profile data. SCALE GUIDE — Career
     preferences: RANK 1 = most preferred, 8 = least preferred. SCALE GUIDE — Life
     criteria: RANK 1 = most important, 9 = least important. SCALE GUIDE — Insecurities
-    (1-10): 1 = least insecure, 10 = very insecure; high >= 7, low <= 3. SCALE GUIDE
-    — Statements (1-5): 1 = least applicable, 5 = most applicable; high >= 4, low
-    <= 2. Phase mapping: Pre = Initial/Start/Baseline; Post = After/Follow-up/Success.
-
-    '
+    (1-10): 1 = least insecure, 10 = very insecure. SCALE GUIDE — Statements (1-5): 1 = least applicable,
+    5 = most applicable. Phase mapping: Pre = Before Workshop ; Post = After Workshop.'
   meta:
     domain: NIRMAN Social Leadership Program
     table_role: Questionnaire — subjective / psychometric data
